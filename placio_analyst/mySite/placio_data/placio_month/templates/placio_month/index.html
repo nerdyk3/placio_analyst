@@ -1,0 +1,40 @@
+{%extends 'placio_month/base.html'%} {%block content%}
+<!-- main -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-6" style="padding-top: 4%;margin-left: 10px">
+            <div class="card mx-xl-5">
+                <div class="card-body">
+                    <form enctype="multipart/form-data" action="" method="post" id="importform">
+
+                        <div class="md-form">
+
+                            <div class="form-control">
+                                {% csrf_token %}
+                                <input type="text" placeholder="Type Month Name:" name="description" />
+                                <fieldset>
+                                    <input type="file" id="csvFileInput" name="file" onchange="handleFiles(this.files)" accept=".csv">
+                                </fieldset>
+                            </div>
+                            <button type="submit">upload</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-11 col-md-12 " >
+            <div id="output">
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+<!-- //main -->

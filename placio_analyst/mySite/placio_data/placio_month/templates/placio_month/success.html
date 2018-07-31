@@ -1,0 +1,13 @@
+
+
+{%for x in y%}
+<br>
+<p>{{x}}</p>
+
+{% endfor %}
+<form method="POST">
+	{% csrf_token %}
+	<input type="text" name="x_axis">
+	<input type="text" name="hue">
+	<button type="btn btn-submit">Submit</button>
+</form>
