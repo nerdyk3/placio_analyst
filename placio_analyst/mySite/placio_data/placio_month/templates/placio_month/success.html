@@ -1,13 +1,11 @@
 
 
 {%for x in y%}
-<br>
-<p>{{x}}</p>
-
+<br>{{x}}
 {% endfor %}
-<form method="POST">
+<form action="{%url 'graph' %}" method="POST">
 	{% csrf_token %}
-	<input type="text" name="x_axis">
-	<input type="text" name="hue">
+	<input type="text" name="x_axis" id="x_axis">
+	<input type="text" name="hue" id="hue">
 	<button type="btn btn-submit">Submit</button>
 </form>

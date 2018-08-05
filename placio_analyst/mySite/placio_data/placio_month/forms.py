@@ -9,6 +9,5 @@ class DataForm(forms.ModelForm):
 		fields = ('description', 'file', )
 
 class PlotForm(forms.Form):
-	x_axis = forms.CharField(label='X Axis', max_length=100),
-	hue = forms.CharField(label='hue',max_length=100),
-	
+	x_axis = forms.CharField(max_length=100),
+	hue = forms.CharField(max_length=100),

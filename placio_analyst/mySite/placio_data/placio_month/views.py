@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from .models import csvimport
 from .forms import DataForm , PlotForm
 import pandas as pd
+import pdb
+from django.template import Context, Template
 #import seaborn as sys
 
 # Create your views here.
@@ -15,20 +17,20 @@ def index(request):
 			FileRead = data.file
 			ReadCSV = pd.read_csv(FileRead)
 			KeyCSV = ReadCSV.keys()
-			return redirect('graph',y=KeyCSV)
+			return render(request,'placio_month/success.html',{'y':KeyCSV})
 	else:
 		x = DataForm()
-	return render(request, 'placio_month/index.html',{'x':x})
+		return render(request, 'placio_month/index.html',{'x':x})
 
 def graph(request):
+	#pdb.set_trace()
 	if request.method == "POST":
 		MaP=PlotForm(request.POST)
 		if MaP.is_valid():
 			#X_axis = MaP.save(commit=False)
 			X = MaP.x_axis
 			Hue = MaP.hue
-			data=[{'X':X}]
-			return render(request,'placio_month/graph.html', data)
+			return render(request,'placio_month/graph.html',{"X":Hue})
 	else:
 		MaP = PlotForm()
-	return render(request,'placio_month/success.html',[{'MaP':MaP},{'y':y}])
+		return render(request,'placio_month/success.html',{'MaP':MaP})
