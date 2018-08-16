@@ -1,0 +1,4 @@
+pip install django-excel
+pip install django-pandas
+pip install django<=2.0
+pip install seaborn

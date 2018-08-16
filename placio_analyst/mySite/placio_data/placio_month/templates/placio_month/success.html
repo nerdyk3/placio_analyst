@@ -1,11 +1,18 @@
+{%extends 'placio_month/base.html'%}
+{%block content%}
 
-
-{%for x in y%}
-<br>{{x}}
-{% endfor %}
-<form action="{%url 'graph' %}" method="POST">
-	{% csrf_token %}
-	<input type="text" name="x_axis" id="x_axis">
-	<input type="text" name="hue" id="hue">
-	<button type="btn btn-submit">Submit</button>
+<form action="{%url 'graph'%}" method="POST">
+    {%csrf_token%}
+    <select name="x_axis">
+        {%for x in y%}
+        <option value="{{x}}" >{{x}}</option>
+        {% endfor %}
+    </select>
+    <select name="hue">
+        {%for x1 in y%}
+        <option value="{{x1}}">{{x1}}</option>
+        {% endfor %}
+    </select>
+    <button type="btn btn-submit">Submit</button>
 </form>
+{%endblock%}

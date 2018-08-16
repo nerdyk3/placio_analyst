@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect,HttpResponse
-from .models import csvimport
+from .models import csvimport, graph_axis
 from .forms import DataForm , PlotForm
 import pandas as pd
 import pdb
 from django.template import Context, Template
-#import seaborn as sys
+import seaborn as sys
 
 # Create your views here.
 
@@ -27,10 +27,11 @@ def graph(request):
 	if request.method == "POST":
 		MaP=PlotForm(request.POST)
 		if MaP.is_valid():
+			data = MaP.save(commit=False)
+			#data.save()
 			#X_axis = MaP.save(commit=False)
-			X = MaP.x_axis
-			Hue = MaP.hue
-			return render(request,'placio_month/graph.html',{"X":Hue})
+			#return HttpResponse(data.hue)
+			return render(request,'placio_month/graph.html',{"z":data.hue})
 	else:
 		MaP = PlotForm()
 		return render(request,'placio_month/success.html',{'MaP':MaP})

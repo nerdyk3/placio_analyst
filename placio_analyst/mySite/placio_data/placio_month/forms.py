@@ -1,5 +1,5 @@
 from django import forms
-from .models import csvimport
+from .models import csvimport,graph_axis
 
 
 class DataForm(forms.ModelForm):
@@ -8,6 +8,8 @@ class DataForm(forms.ModelForm):
 		model = csvimport
 		fields = ('description', 'file', )
 
-class PlotForm(forms.Form):
-	x_axis = forms.CharField(max_length=100),
-	hue = forms.CharField(max_length=100),
+class PlotForm(forms.ModelForm):
+
+	class Meta:
+		model = graph_axis
+		fields = ('x_axis', 'hue', )
