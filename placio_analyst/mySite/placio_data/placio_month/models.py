@@ -10,7 +10,13 @@ class csvimport(models.Model):
 
 	def __str__(self):
 		return self.description
+class GraphType(models.Model):
+	graph_name = models.CharField(max_length=120)
+
+	def __str__(self):
+		return self.graph_name
 
 class graph_axis(models.Model):
+	graphName = models.CharField(max_length=200)
 	x_axis = models.CharField(max_length=200)
 	hue = models.CharField(max_length=200)

@@ -1,4 +1,7 @@
 {%extends 'placio_month/base.html'%}
   {%block content%}
-  {{z}}
+  <img src="data:image/png;base64,{{x|safe}}">
+    <form>
+  <input type="button" onclick="{%url 'index.html'%}" />
+  </form>
   {%endblock%}

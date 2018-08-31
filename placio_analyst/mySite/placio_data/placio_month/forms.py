@@ -12,4 +12,4 @@ class PlotForm(forms.ModelForm):
 
 	class Meta:
 		model = graph_axis
-		fields = ('x_axis', 'hue', )
+		fields = ('graphName','x_axis', 'hue',)

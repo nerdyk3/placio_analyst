@@ -1,18 +1,43 @@
-{%extends 'placio_month/base.html'%}
-{%block content%}
+{%extends 'placio_month/base.html'%} {%block content%} {% load static %}
+<form action="{%url 'graph'%}" class="form" method="POST">
+  {%csrf_token%}
+<div class="row">
+  <div class="col-md-4"></div>
 
-<form action="{%url 'graph'%}" method="POST">
-    {%csrf_token%}
-    <select name="x_axis">
-        {%for x in y%}
-        <option value="{{x}}" >{{x}}</option>
-        {% endfor %}
-    </select>
-    <select name="hue">
-        {%for x1 in y%}
-        <option value="{{x1}}">{{x1}}</option>
-        {% endfor %}
-    </select>
-    <button type="btn btn-submit">Submit</button>
+    <div class="col-md-3">
+            <select class="form-group form-control" name="graphName">
+                <option value="">Please select Type of Graph</option>
+                {%for x3 in r%}
+                <option value="{{x3}}">{{x3}}</option>
+                {% endfor %}
+            </select>
+    </div>
+    <div class="col-md-2">
+    <div ><img src="{%static 'images/hello.gif'%}" class="img-responsive"></div></div>
+  </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+    <div class="col-md-3">
+        <select class="form-control" name="x_axis">
+            <option value="">Please select X-axis</option>
+            {%for x in y%}
+            <option value="{{x}}">{{x}}</option>
+            {% endfor %}
+        </select>
+      </div>
+        <div class="col-md-3">
+        <select class="form-control" name="hue">
+            <option value="">Please select Y-axis</option>
+            {%for x1 in y%}
+            <option value="{{x1}}">{{x1}}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-5"></div>
+  <button class="btn btn-primary">Submit</button>
+</div>
 </form>
 {%endblock%}

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect,HttpResponse
-from .models import csvimport, graph_axis
+from .models import csvimport, graph_axis,GraphType
 from .forms import DataForm , PlotForm
 import pandas as pd
 import pdb
 from django.template import Context, Template
 import seaborn as sys
+import matplotlib.pyplot as mlt
+import cufflinks as cf
 
 # Create your views here.
 
@@ -17,10 +19,19 @@ def index(request):
 			FileRead = data.file
 			ReadCSV = pd.read_csv(FileRead)
 			KeyCSV = ReadCSV.keys()
-			return render(request,'placio_month/success.html',{'y':KeyCSV})
+			ReadFile(data,ReadCSV)
+			return render(request,'placio_month/success.html',{'y':ReadCSV,'r':GraphType.objects.all()})
+
 	else:
 		x = DataForm()
 		return render(request, 'placio_month/index.html',{'x':x})
+
+def ReadFile(data,File):
+	# if get_object_or_404(csvimport, pk=pk):
+	global f,z
+	z=data
+	f = File
+	return f
 
 def graph(request):
 	#pdb.set_trace()
@@ -28,10 +39,28 @@ def graph(request):
 		MaP=PlotForm(request.POST)
 		if MaP.is_valid():
 			data = MaP.save(commit=False)
-			#data.save()
-			#X_axis = MaP.save(commit=False)
-			#return HttpResponse(data.hue)
-			return render(request,'placio_month/graph.html',{"z":data.hue})
+			Graphtype(data)
+			return redirect('../')
+
+
 	else:
 		MaP = PlotForm()
 		return render(request,'placio_month/success.html',{'MaP':MaP})
+
+def Graphtype(typegarph):
+	if typegarph.graphName == "ColumnBarGraphs":
+		mlt.subplots(figsize=(10,7))
+		sys.countplot(x=typegarph.x_axis,hue=typegarph.hue, data=f).set_title(z.description)
+		return mlt.show()
+	if typegarph.graphName == "FacetGrid":
+		mlt.subplots(figsize=(10,7))
+		sys.relplot(x=typegarph.x_axis, y=typegarph.hue, hue=typegarph.hue, data=f)
+		return mlt.show()
+	# if typegarph.graphName == "LinePlot":
+	# 	mlt.subplots(figsize=(10,7))
+	# 	sys.lineplot(x=typegarph.x_axis, y=typegarph.hue, hue=typegarph.hue,data=f)
+	# 	return mlt.show()
+	# if typegarph.graphName == "ColumnBarGraphs":
+	# 	mlt.subplots(figsize=(10,7))
+	# 	sys.barplot(x=typegarph.x_axis,y=typegarph.hue,hue=typegarph.hue, data=f).set_title(z.description)
+	# 	return mlt.show()

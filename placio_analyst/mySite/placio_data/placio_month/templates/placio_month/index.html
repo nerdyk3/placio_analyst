@@ -1,40 +1,33 @@
-{%extends 'placio_month/base.html'%} {%block content%}
+{%extends 'placio_month/base.html'%} {%block content%}{% load static %}
 <!-- main -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-lg-6 col-sm-6" style="padding-top: 4%;margin-left: 10px">
-            <div class="card mx-xl-5">
-                <div class="card-body">
-                    <form enctype="multipart/form-data" action="" method="post" id="importform">
-
-                        <div class="md-form">
-
-                            <div class="form-control">
-                                {% csrf_token %}
-                                <input type="text" placeholder="Type Month Name:" name="description" />
-                                <fieldset>
-                                    <input type="file" id="csvFileInput" name="file" onchange="handleFiles(this.files)" accept=".csv">
-                                </fieldset>
-                            </div>
-                            <button type="submit">upload</button>
-                        </div>
-                    </form>
-                </div>
-
+<div class="container" style="color:#fff">
+        <div class="row">
+          <div class="col-md-3"></div>
+            <div class="col-md-3 ">
+                <form enctype="multipart/form-data" action="" method="post" id="importform">
+                    {% csrf_token %}
+                    <input class="form-control" type="text" placeholder="Description" name="description" />
+                    <br>
+                    <input type="file" class="btn btn-default" id="csvFileInput" name="file" onchange="handleFiles(this.files)" accept=".csv">
+                    <br>
+                    <button type="submit" class="btn btn-info">upload</button>
+                </form>
             </div>
-
+            <div class="col-md-2">
+            <div ><img src="{%static 'images/hello.gif'%}" class="img-responsive"></div></div>
         </div>
     </div>
-</div>
+
 <div class="container">
-    <div class="row ">
-        <div class="col-lg-11 col-md-12 " >
+  <br>
+  <div class="well well-lg" style="height:300px;  overflow-y: scroll;">
+    <div class="row">
+        <div class="col-lg-11 col-md-12 ">
             <div id="output">
             </div>
         </div>
     </div>
 </div>
-
 </div>
 {% endblock %}
 <!-- //main -->
